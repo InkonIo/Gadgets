@@ -8,12 +8,12 @@ import java.awt.*;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class PC extends JFrame {
+public class Watch extends JFrame {
 
     public static ArrayList<ProductItem> cart = new ArrayList<>();  // теперь список типа Products
 
-    public PC() {
-        super("Магазин компьютеров");
+    public Watch() {
+        super("Магазин смарт-часы");
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(760, 1024);
@@ -21,7 +21,7 @@ public class PC extends JFrame {
 
         JPanel mainPanel = new JPanel(new BorderLayout());
 
-        JLabel title = new JLabel("Добро пожаловать в магазин компьютеров", SwingConstants.CENTER);
+        JLabel title = new JLabel("Добро пожаловать в магазин смарт-часы", SwingConstants.CENTER);
         title.setFont(new Font("Arial", Font.BOLD, 26));
         title.setBorder(BorderFactory.createEmptyBorder(20, 10, 10, 10));
         mainPanel.add(title, BorderLayout.NORTH);

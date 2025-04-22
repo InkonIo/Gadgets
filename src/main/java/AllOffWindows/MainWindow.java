@@ -4,6 +4,8 @@ import Product.Ear;
 import Product.Laptop;
 import Product.PC;
 import Product.Phone;
+import Product.Tablet; // Новый товар
+import Product.Watch;  // Новый товар
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,11 +17,8 @@ public class MainWindow extends JFrame {
             {"Наушники", "/Images/ear.jpg"},
             {"Ноутбуки", "/Images/laptop.jpg"},
             {"Компьютеры", "/Images/pc.jpg"},
-            {"Категория 5", "/Images/pc.jpg"},
-            {"Категория 6", "/Images/ear.jpg"},
-            {"Категория 7", "/Images/phone.jpg"},
-            {"Категория 8", "/Images/laptop.jpg"},
-            {"Категория 9", "/Images/pc.jpg"}
+            {"Планшеты", "/Images/tabelt.jpg"}, // Новый товар
+            {"Часы", "/Images/Watch.jpg"},  // Новый товар
     };
 
     public MainWindow() {
@@ -64,7 +63,7 @@ public class MainWindow extends JFrame {
         // оборачиваем карточки в панель с прокруткой
         JScrollPane scrollPane = new JScrollPane(productPanel);
         scrollPane.setBorder(null);
-        scrollPane.getVerticalScrollBar().setUnitIncrement(16); // плавный скролл
+        scrollPane.getVerticalScrollBar().setUnitIncrement(15); // плавный скролл
         mainPanel.add(scrollPane, BorderLayout.CENTER);
 
         // кнопка корзины снизу
@@ -84,7 +83,6 @@ public class MainWindow extends JFrame {
         add(mainPanel);
         setVisible(true);
     }
-
 
     private JPanel createCategoryPanel(String categoryName, String imagePath) {
         JPanel panel = new JPanel();
@@ -110,16 +108,22 @@ public class MainWindow extends JFrame {
             dispose();
             switch (categoryName) {
                 case "Смартфоны":
-                    new Phone();
+                    new Phone();  // Отображение товаров смартфонов
                     break;
                 case "Наушники":
-                    new Ear();
+                    new Ear();  // Отображение товаров наушников
                     break;
                 case "Ноутбуки":
-                    new Laptop();
+                    new Laptop();  // Отображение товаров ноутбуков
                     break;
                 case "Компьютеры":
-                    new PC();
+                    new PC();  // Отображение товаров компьютеров
+                    break;
+                case "Планшеты":
+                    new Tablet();  // Отображение товаров планшетов
+                    break;
+                case "Часы":
+                    new Watch();  // Отображение товаров часов
                     break;
                 default:
                     JOptionPane.showMessageDialog(this, "Неизвестная категория.");
@@ -139,9 +143,3 @@ public class MainWindow extends JFrame {
         SwingUtilities.invokeLater(MainWindow::new);
     }
 }
-
-// Используется GridBagLayout с 3 колонками.
-//
-//Каждая строка автоматически центрируется благодаря отступам (Insets).
-//
-//Используется JScrollPane, чтобы появлялся скролл при добавлении большего количества карточек.

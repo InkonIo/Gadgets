@@ -1,11 +1,11 @@
 package Product;
 
-import AllOffWindows.Cart;
 import AllOffWindows.MainWindow;
 import AllOffWindows.ProductItem;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class Laptop extends JFrame {
@@ -13,7 +13,7 @@ public class Laptop extends JFrame {
     public static ArrayList<ProductItem> cart = new ArrayList<>();  // теперь список типа Products
 
     public Laptop() {
-        super("Магазин компьютеров");
+        super("Магазин ноутбуков");
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(760, 1024);
@@ -21,7 +21,7 @@ public class Laptop extends JFrame {
 
         JPanel mainPanel = new JPanel(new BorderLayout());
 
-        JLabel title = new JLabel("Добро пожаловать в магазин компьютеров", SwingConstants.CENTER);
+        JLabel title = new JLabel("Добро пожаловать в магазин ноутбуков", SwingConstants.CENTER);
         title.setFont(new Font("Arial", Font.BOLD, 26));
         title.setBorder(BorderFactory.createEmptyBorder(20, 10, 10, 10));
         mainPanel.add(title, BorderLayout.NORTH);
@@ -40,9 +40,9 @@ public class Laptop extends JFrame {
 
         // Список товаров
         ArrayList<ProductItem> items = new ArrayList<>();
-        cart.add(new ProductItemImpl("lenovo Super", "230 000 ₸", "/Images/ForPc/Pc1"));
-        cart.add(new ProductItemImpl("lenovo Super", "230 000 ₸", "/Images/ForPc/Pc2"));
-        cart.add(new ProductItemImpl("lenovo Super", "230 000 ₸", "/Images/ForPc/Pc3"));
+        items.add(new ProductItemImpl("lenovo Super", "230 000 ₸", "/Images/ForPc/pc1.jpg"));
+        items.add(new ProductItemImpl("php", "452 000 ₸", "/Images/ForPc/pc2.jpg"));
+        items.add(new ProductItemImpl("love love delux", "256 000 ₸", "/Images/ForPc/pc3.jpg"));
 
         // Добавление карточек в сетку
         GridBagConstraints gbc = new GridBagConstraints();
@@ -68,7 +68,6 @@ public class Laptop extends JFrame {
                 col = 0;
                 row++;
             }
-            new Cart();
         }
 
         JButton backButton = new JButton("Назад");
@@ -96,11 +95,17 @@ public class Laptop extends JFrame {
 
         JLabel imageLabel;
         try {
-            // Используем getImageUrl() для получения пути к изображению
-            ImageIcon icon = new ImageIcon(getClass().getResource(item.getImageUrl()));
-            Image scaled = icon.getImage().getScaledInstance(250, 150, Image.SCALE_SMOOTH);
-            imageLabel = new JLabel(new ImageIcon(scaled));
+            URL imageUrl = getClass().getResource(item.getImageUrl());
+            if (imageUrl == null) {
+                System.out.println("Изображение не найдено: " + item.getImageUrl());
+                imageLabel = new JLabel("Изображение не найдено", SwingConstants.CENTER);
+            } else {
+                ImageIcon icon = new ImageIcon(imageUrl);
+                Image scaled = icon.getImage().getScaledInstance(250, 150, Image.SCALE_SMOOTH);
+                imageLabel = new JLabel(new ImageIcon(scaled));
+            }
         } catch (Exception e) {
+            System.out.println("Ошибка загрузки изображения: " + item.getImageUrl());
             imageLabel = new JLabel("Изображение не найдено", SwingConstants.CENTER);
         }
 
@@ -127,10 +132,6 @@ public class Laptop extends JFrame {
         card.add(infoPanel, BorderLayout.CENTER);
 
         return card;
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(PC::new);
     }
 
     static class ProductItemImpl implements ProductItem {
