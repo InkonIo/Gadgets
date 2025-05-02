@@ -60,7 +60,6 @@ public class Cart extends JFrame {
         add(mainPanel);
 
         // Items
-        collectItems(PC.cart);
         collectItems(Phone.cart);
         collectItems(Ear.cart);
         collectItems(Laptop.cart);
@@ -73,7 +72,6 @@ public class Cart extends JFrame {
 
     public void clearCart() {
         itemQuantities.clear();
-        PC.cart.clear();
         Phone.cart.clear();
         Ear.cart.clear();
         Laptop.cart.clear();
@@ -181,8 +179,8 @@ public class Cart extends JFrame {
 
     private JButton createMiniButton(String text) {
         JButton button = new JButton(text);
-        button.setPreferredSize(new Dimension(40, 30));
-        button.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        button.setPreferredSize(new Dimension(55, 35));
+        button.setFont(new Font("Segoe UI", Font.BOLD, 18));
         button.setFocusPainted(false);
         button.setForeground(Color.WHITE);
 
@@ -197,5 +195,4 @@ public class Cart extends JFrame {
 
         return button;
     }
-
 }

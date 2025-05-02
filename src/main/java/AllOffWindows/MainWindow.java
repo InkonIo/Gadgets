@@ -2,7 +2,6 @@ package AllOffWindows;
 
 import Product.Ear;
 import Product.Laptop;
-import Product.PC;
 import Product.Phone;
 import Product.Tablet; // Новый товар
 import Product.Watch;  // Новый товар
@@ -16,7 +15,6 @@ public class MainWindow extends JFrame {
             {"Смартфоны", "/Images/phone.jpg"},
             {"Наушники", "/Images/ear.jpg"},
             {"Ноутбуки", "/Images/laptop.jpg"},
-            {"Компьютеры", "/Images/pc.jpg"},
             {"Планшеты", "/Images/tabelt.jpg"}, // Новый товар
             {"Часы", "/Images/Watch.jpg"},  // Новый товар
     };
@@ -115,9 +113,6 @@ public class MainWindow extends JFrame {
                     break;
                 case "Ноутбуки":
                     new Laptop();  // Отображение товаров ноутбуков
-                    break;
-                case "Компьютеры":
-                    new PC();  // Отображение товаров компьютеров
                     break;
                 case "Планшеты":
                     new Tablet();  // Отображение товаров планшетов
