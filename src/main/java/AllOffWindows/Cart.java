@@ -1,9 +1,6 @@
 package AllOffWindows;
 
-import Product.Ear;
-import Product.Laptop;
-import Product.PC;
-import Product.Phone;
+import Product.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,6 +48,8 @@ public class Cart extends JFrame {
             Phone.cart.clear();
             Ear.cart.clear();
             Laptop.cart.clear();
+            Tablet.cart.clear();
+            Watch.cart.clear();
             updateCart();
         });
 
@@ -67,6 +66,8 @@ public class Cart extends JFrame {
         collectItems(Phone.cart);
         collectItems(Ear.cart);
         collectItems(Laptop.cart);
+        collectItems(Tablet.cart);
+        collectItems(Watch.cart);
 
         updateCart();
         setVisible(true);
