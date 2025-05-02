@@ -40,9 +40,29 @@ public class Tablet extends JFrame {
 
         // Список товаров
         ArrayList<ProductItem> items = new ArrayList<>();
-        items.add(new ProductItemImpl("lenovo Super", "230 000 ₸", "/Images/ForPc/pc1.jpg"));
-        items.add(new ProductItemImpl("php", "452 000 ₸", "/Images/ForPc/pc2.jpg"));
-        items.add(new ProductItemImpl("love love delux", "256 000 ₸", "/Images/ForPc/pc3.jpg"));
+        items.add(new ProductItemImpl(
+                "Apple iPad Air 2022 10.9\" Wi-Fi",
+                "279 959 ₸",
+                "/Images/ForTablet/tab1.png",
+                """
+                Современный планшет от Apple с 10.9-дюймовым дисплеем, 8 ГБ оперативной памяти и 64 ГБ хранилища.
+                Цвет: синий. Отлично подойдёт для учёбы, развлечений и творчества.
+                Работает на iPadOS, поддерживает Apple Pencil.
+                """
+        ));
+
+        items.add(new ProductItemImpl(
+                "Teclast T50 Plus + клавиатура",
+                "89 990 ₸",
+                "/Images/ForTablet/tab2.png",
+                """
+                Недорогой и функциональный планшет с диагональю 11 дюймов.
+                Оснащён 6 ГБ оперативной памяти и 256 ГБ встроенного хранилища.
+                В комплекте клавиатура — удобно для работы и учебы.
+                Цвет: серый.
+                """
+        ));
+
 
         // Добавление карточек в сетку
         GridBagConstraints gbc = new GridBagConstraints();
@@ -93,6 +113,11 @@ public class Tablet extends JFrame {
         card.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         card.setPreferredSize(new Dimension(300, 300));
 
+        JButton infoButton = new JButton("Показать описание");
+        infoButton.addActionListener(e -> {
+            JOptionPane.showMessageDialog(this, item.getDescription(), "Описание " + item.getName(), JOptionPane.INFORMATION_MESSAGE);
+        });
+
         JLabel imageLabel;
         try {
             URL imageUrl = getClass().getResource(item.getImageUrl());
@@ -109,7 +134,6 @@ public class Tablet extends JFrame {
             imageLabel = new JLabel("Изображение не найдено", SwingConstants.CENTER);
         }
 
-
         card.add(imageLabel, BorderLayout.NORTH);
 
         JPanel infoPanel = new JPanel(new GridLayout(3, 1));
@@ -125,9 +149,11 @@ public class Tablet extends JFrame {
             JOptionPane.showMessageDialog(this, item.getName() + " добавлен в корзину!");
         });
 
+        infoPanel.setLayout(new GridLayout(4, 1)); // Было 3, стало 4
         infoPanel.add(nameLabel);
         infoPanel.add(priceLabel);
         infoPanel.add(buyButton);
+        infoPanel.add(infoButton);
 
         card.add(infoPanel, BorderLayout.CENTER);
 
@@ -138,26 +164,25 @@ public class Tablet extends JFrame {
         private String name;
         private String price;
         private String imageUrl;
+        private String description; // <-- добавлено
 
-        public ProductItemImpl(String name, String price, String imageUrl) {
+        public ProductItemImpl(String name, String price, String imageUrl, String description) {
             this.name = name;
             this.price = price;
             this.imageUrl = imageUrl;
+            this.description = description;
         }
 
         @Override
-        public String getName() {
-            return name;
-        }
+        public String getName() { return name; }
 
         @Override
-        public String getPrice() {
-            return price;
-        }
+        public String getPrice() { return price; }
 
         @Override
-        public String getImageUrl() {
-            return imageUrl;  // Возвращаем URL изображения
-        }
+        public String getImageUrl() { return imageUrl; }
+
+        public String getDescription() { return description; } // <-- геттер
     }
+
 }

@@ -40,9 +40,98 @@ public class Phone extends JFrame {
 
         // Список товаров
         ArrayList<ProductItem> items = new ArrayList<>();
-        items.add(new ProductItemImpl("lenovo Super", "230 000 ₸", "/Images/ForPc/pc1.jpg"));
-        items.add(new ProductItemImpl("php", "452 000 ₸", "/Images/ForPc/pc2.jpg"));
-        items.add(new ProductItemImpl("love love delux", "256 000 ₸", "/Images/ForPc/pc3.jpg"));
+        items.add(new ProductItemImpl(
+                "iPhone 15 Pro",
+                "230 000 ₸",
+                "/Images/ForPhone/Ph1.jpg",
+                """
+                Общие:
+                - 4G (LTE): Да
+                - 5G: Да
+                - NFC: Да
+                - ОС: iOS 17
+                - SIM: nano SIM + eSIM
+                - Материал: металл и стекло
+                - Цвет: черный
+            
+                Дисплей:
+                - OLED, Super Retina XDR, 6.1", 2566x1179 (460 ppi)
+                - Автоповорот, защита от царапин
+            
+                Память и процессор:
+                - 6 ГБ RAM, 128 ГБ ROM
+                - Apple A16 Bionic, 6-ядерный
+            
+                Камеры:
+                - Основная: 48+12+12 МП, вспышка
+                - Фронтальная: 12 МП
+                - Видео: до 4K 60 к/с
+            
+                Аудио: WAV, AAC, WMA, MP3, FLAC
+                """
+        ));
+
+        items.add(new ProductItemImpl(
+                "iPhone 14 Pro",
+                "200 000 ₸",
+                "/Images/ForPhone/Ph2.jpg",
+                """
+                Общие:
+                - 4G (LTE): Да
+                - 5G: Да
+                - NFC: Да
+                - ОС: iOS 16
+                - SIM: nano SIM + eSIM
+                - Материал: стекло и нержавеющая сталь
+                - Цвет: серебристый
+            
+                Дисплей:
+                - OLED, Super Retina XDR, 6.1", 2532x1170 (460 ppi)
+                - Автоповорот, защита от царапин
+            
+                Память и процессор:
+                - 6 ГБ RAM, 128 ГБ ROM
+                - Apple A15 Bionic, 6-ядерный
+            
+                Камеры:
+                - Основная: 48+12+12 МП, вспышка
+                - Фронтальная: 12 МП
+                - Видео: до 4K 60 к/с
+            
+                Аудио: WAV, AAC, WMA, MP3, FLAC
+                """
+        ));
+
+        items.add(new ProductItemImpl(
+                "Samsung Galaxy S23 Ultra",
+                "270 000 ₸",
+                "/Images/ForPhone/Ph3.jpg",
+                """
+                Общие:
+                - 4G (LTE): Да
+                - 5G: Да
+                - NFC: Да
+                - ОС: Android 13
+                - SIM: nano SIM + eSIM
+                - Материал: стекло и алюминий
+                - Цвет: черный
+            
+                Дисплей:
+                - Dynamic AMOLED 2X, 6.8", 3088x1440 (500 ppi)
+                - Автоповорот, защита от царапин
+            
+                Память и процессор:
+                - 12 ГБ RAM, 256 ГБ ROM
+                - Snapdragon 8 Gen 2, 8-ядерный
+            
+                Камеры:
+                - Основная: 200+12+10+10 МП, вспышка
+                - Фронтальная: 12 МП
+                - Видео: до 8K 30 к/с
+            
+                Аудио: WAV, AAC, MP3, FLAC
+                """
+        ));
 
         // Добавление карточек в сетку
         GridBagConstraints gbc = new GridBagConstraints();
@@ -93,6 +182,11 @@ public class Phone extends JFrame {
         card.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         card.setPreferredSize(new Dimension(300, 300));
 
+        JButton infoButton = new JButton("Показать описание");
+        infoButton.addActionListener(e -> {
+            JOptionPane.showMessageDialog(this, item.getDescription(), "Описание " + item.getName(), JOptionPane.INFORMATION_MESSAGE);
+        });
+
         JLabel imageLabel;
         try {
             URL imageUrl = getClass().getResource(item.getImageUrl());
@@ -109,7 +203,6 @@ public class Phone extends JFrame {
             imageLabel = new JLabel("Изображение не найдено", SwingConstants.CENTER);
         }
 
-
         card.add(imageLabel, BorderLayout.NORTH);
 
         JPanel infoPanel = new JPanel(new GridLayout(3, 1));
@@ -125,9 +218,11 @@ public class Phone extends JFrame {
             JOptionPane.showMessageDialog(this, item.getName() + " добавлен в корзину!");
         });
 
+        infoPanel.setLayout(new GridLayout(4, 1)); // Было 3, стало 4
         infoPanel.add(nameLabel);
         infoPanel.add(priceLabel);
         infoPanel.add(buyButton);
+        infoPanel.add(infoButton);
 
         card.add(infoPanel, BorderLayout.CENTER);
 
@@ -138,26 +233,25 @@ public class Phone extends JFrame {
         private String name;
         private String price;
         private String imageUrl;
+        private String description; // <-- добавлено
 
-        public ProductItemImpl(String name, String price, String imageUrl) {
+        public ProductItemImpl(String name, String price, String imageUrl, String description) {
             this.name = name;
             this.price = price;
             this.imageUrl = imageUrl;
+            this.description = description;
         }
 
         @Override
-        public String getName() {
-            return name;
-        }
+        public String getName() { return name; }
 
         @Override
-        public String getPrice() {
-            return price;
-        }
+        public String getPrice() { return price; }
 
         @Override
-        public String getImageUrl() {
-            return imageUrl;  // Возвращаем URL изображения
-        }
+        public String getImageUrl() { return imageUrl; }
+
+        public String getDescription() { return description; } // <-- геттер
     }
+
 }

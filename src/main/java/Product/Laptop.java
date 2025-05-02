@@ -40,9 +40,27 @@ public class Laptop extends JFrame {
 
         // Список товаров
         ArrayList<ProductItem> items = new ArrayList<>();
-        items.add(new ProductItemImpl("lenovo Super", "230 000 ₸", "/Images/ForPc/pc1.jpg"));
-        items.add(new ProductItemImpl("php", "452 000 ₸", "/Images/ForPc/pc2.jpg"));
-        items.add(new ProductItemImpl("love love delux", "256 000 ₸", "/Images/ForPc/pc3.jpg"));
+        items.add(new Tablet.ProductItemImpl(
+                "ThundeRobot 911S Core D 15.6\"",
+                "370 000 ₸",
+                "/Images/ForLaptop/lap1.jpg",
+                """
+                Мощный игровой ноутбук с 16 ГБ оперативной памяти и SSD 512 ГБ.
+                Отлично подходит для гейминга и ресурсоемких задач.
+                Без предустановленной ОС — полная свобода выбора.
+                """
+        ));
+
+        items.add(new Tablet.ProductItemImpl(
+                "Apple MacBook Air 13 2020",
+                "488 510 ₸",
+                "/Images/ForLaptop/lap2.jpg",
+                """
+                Лёгкий и стильный ноутбук с экраном 13.3", 8 ГБ RAM и SSD 256 ГБ.
+                Оснащён macOS и работает на процессоре Apple M1.
+                Идеален для учебы, работы и повседневных задач.
+                """
+        ));
 
         // Добавление карточек в сетку
         GridBagConstraints gbc = new GridBagConstraints();
@@ -93,6 +111,11 @@ public class Laptop extends JFrame {
         card.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         card.setPreferredSize(new Dimension(300, 300));
 
+        JButton infoButton = new JButton("Показать описание");
+        infoButton.addActionListener(e -> {
+            JOptionPane.showMessageDialog(this, item.getDescription(), "Описание " + item.getName(), JOptionPane.INFORMATION_MESSAGE);
+        });
+
         JLabel imageLabel;
         try {
             URL imageUrl = getClass().getResource(item.getImageUrl());
@@ -109,7 +132,6 @@ public class Laptop extends JFrame {
             imageLabel = new JLabel("Изображение не найдено", SwingConstants.CENTER);
         }
 
-
         card.add(imageLabel, BorderLayout.NORTH);
 
         JPanel infoPanel = new JPanel(new GridLayout(3, 1));
@@ -125,9 +147,11 @@ public class Laptop extends JFrame {
             JOptionPane.showMessageDialog(this, item.getName() + " добавлен в корзину!");
         });
 
+        infoPanel.setLayout(new GridLayout(4, 1)); // Было 3, стало 4
         infoPanel.add(nameLabel);
         infoPanel.add(priceLabel);
         infoPanel.add(buyButton);
+        infoPanel.add(infoButton);
 
         card.add(infoPanel, BorderLayout.CENTER);
 
@@ -138,26 +162,25 @@ public class Laptop extends JFrame {
         private String name;
         private String price;
         private String imageUrl;
+        private String description; // <-- добавлено
 
-        public ProductItemImpl(String name, String price, String imageUrl) {
+        public ProductItemImpl(String name, String price, String imageUrl, String description) {
             this.name = name;
             this.price = price;
             this.imageUrl = imageUrl;
+            this.description = description;
         }
 
         @Override
-        public String getName() {
-            return name;
-        }
+        public String getName() { return name; }
 
         @Override
-        public String getPrice() {
-            return price;
-        }
+        public String getPrice() { return price; }
 
         @Override
-        public String getImageUrl() {
-            return imageUrl;  // Возвращаем URL изображения
-        }
+        public String getImageUrl() { return imageUrl; }
+
+        public String getDescription() { return description; } // <-- геттер
     }
+
 }

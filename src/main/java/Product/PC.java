@@ -40,9 +40,38 @@ public class PC extends JFrame {
 
         // Список товаров
         ArrayList<ProductItem> items = new ArrayList<>();
-        items.add(new ProductItemImpl("lenovo Super", "230 000 ₸", "/Images/ForPc/pc1.jpg"));
-        items.add(new ProductItemImpl("php", "452 000 ₸", "/Images/ForPc/pc2.jpg"));
-        items.add(new ProductItemImpl("love love delux", "256 000 ₸", "/Images/ForPc/pc3.jpg"));
+        items.add(new ProductItemImpl(
+                "ASUS ROG Strix G15",
+                "430 000 ₸",
+                "/Images/ForPC/pc1.jpg",
+                """
+                Игровой ноутбук с мощной графикой и процессором AMD Ryzen 7.
+                Идеален для геймеров и продвинутых пользователей.
+                16 ГБ RAM, SSD 512 ГБ, GeForce RTX 3060, Windows 11.
+                """
+        ));
+
+        items.add(new ProductItemImpl(
+                "Apple MacBook Pro 14 M2",
+                "590 000 ₸",
+                "/Images/ForPC/pc2.jpg",
+                """
+                Премиальный ноутбук для профессионалов.
+                Чип M2 Pro, 16 ГБ RAM, SSD 512 ГБ, дисплей Liquid Retina XDR.
+                Отличный выбор для работы с графикой, видео и кодом.
+                """
+        ));
+
+        items.add(new ProductItemImpl(
+                "HP Pavilion 15",
+                "260 000 ₸",
+                "/Images/ForPC/pc3.jpg",
+                """
+                Универсальный ноутбук для дома и офиса.
+                Intel Core i5, 8 ГБ RAM, SSD 256 ГБ, Full HD экран.
+                Надёжный, лёгкий и производительный.
+                """
+        ));
 
         // Добавление карточек в сетку
         GridBagConstraints gbc = new GridBagConstraints();
@@ -93,6 +122,11 @@ public class PC extends JFrame {
         card.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
         card.setPreferredSize(new Dimension(300, 300));
 
+        JButton infoButton = new JButton("Показать описание");
+        infoButton.addActionListener(e -> {
+            JOptionPane.showMessageDialog(this, item.getDescription(), "Описание " + item.getName(), JOptionPane.INFORMATION_MESSAGE);
+        });
+
         JLabel imageLabel;
         try {
             URL imageUrl = getClass().getResource(item.getImageUrl());
@@ -109,7 +143,6 @@ public class PC extends JFrame {
             imageLabel = new JLabel("Изображение не найдено", SwingConstants.CENTER);
         }
 
-
         card.add(imageLabel, BorderLayout.NORTH);
 
         JPanel infoPanel = new JPanel(new GridLayout(3, 1));
@@ -125,9 +158,11 @@ public class PC extends JFrame {
             JOptionPane.showMessageDialog(this, item.getName() + " добавлен в корзину!");
         });
 
+        infoPanel.setLayout(new GridLayout(4, 1)); // Было 3, стало 4
         infoPanel.add(nameLabel);
         infoPanel.add(priceLabel);
         infoPanel.add(buyButton);
+        infoPanel.add(infoButton);
 
         card.add(infoPanel, BorderLayout.CENTER);
 
@@ -138,26 +173,25 @@ public class PC extends JFrame {
         private String name;
         private String price;
         private String imageUrl;
+        private String description; // <-- добавлено
 
-        public ProductItemImpl(String name, String price, String imageUrl) {
+        public ProductItemImpl(String name, String price, String imageUrl, String description) {
             this.name = name;
             this.price = price;
             this.imageUrl = imageUrl;
+            this.description = description;
         }
 
         @Override
-        public String getName() {
-            return name;
-        }
+        public String getName() { return name; }
 
         @Override
-        public String getPrice() {
-            return price;
-        }
+        public String getPrice() { return price; }
 
         @Override
-        public String getImageUrl() {
-            return imageUrl;  // Возвращаем URL изображения
-        }
+        public String getImageUrl() { return imageUrl; }
+
+        public String getDescription() { return description; } // <-- геттер
     }
+
 }
